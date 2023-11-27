@@ -247,6 +247,8 @@ func (*inferSeries) NRows(opts ...dataframe.Options) int { return 0 }
 
 func (*inferSeries) Value(row int, opts ...dataframe.Options) interface{} { return "" }
 
+func (*inferSeries) ValueList(opts ...dataframe.Options) []interface{} { return nil }
+
 func (*inferSeries) ValueString(row int, opts ...dataframe.Options) string { return "" }
 
 func (*inferSeries) Prepend(val interface{}, opts ...dataframe.Options) {}

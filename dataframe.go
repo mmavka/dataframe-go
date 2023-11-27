@@ -151,7 +151,7 @@ func (df *DataFrame) ColName(seriesName string, opts ...Options) Series {
 		defer df.lock.Unlock()
 	}
 
-	return df.Series[df.MustNameToColumn(seriesName)]
+	return df.Series[df.MustNameToColumn(seriesName, dontLock)]
 }
 
 // ValuesOptions is used to modify the behavior of values().

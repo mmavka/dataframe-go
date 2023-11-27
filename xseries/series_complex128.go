@@ -163,6 +163,20 @@ func (s *SeriesComplex128) Value(row int, opts ...dataframe.Options) interface{}
 	return val
 }
 
+func (s *SeriesComplex128) ValueList(opts ...dataframe.Options) []interface{} {
+	if len(opts) == 0 || !opts[0].DontLock {
+		s.lock.RLock()
+		defer s.lock.RUnlock()
+	}
+
+	out := make([]interface{}, len(s.Values))
+	for i, v := range s.Values {
+		out[i] = v
+	}
+
+	return out
+}
+
 // ValueString returns a string representation of a
 // particular row. The string representation is defined
 // by the function set in SetValueToStringFormatter.
