@@ -87,9 +87,10 @@ const (
 	SeriesName
 )
 
-type RowOptions struct {
-	Options
-	SeriesReturnOpt
+type RowOpt struct {
+	DontLock bool
+	Index    bool
+	Name     bool
 }
 
 // Row returns the series' Values for a particular row.
@@ -97,8 +98,14 @@ type RowOptions struct {
 // Example:
 //
 //	df.Row(5, false, dataframe.SeriesIdx|dataframe.SeriesName)
-func (df *DataFrame) Row(row int, opt ...RowOptions) map[interface{}]interface{} {
-	if len(opt) == 0 || !opt[0].DontLock {
+func (df *DataFrame) Row(row int, opt ...RowOpt) map[interface{}]interface{} {
+	var opts RowOpt
+	opts.Name = true
+	if len(opt) > 0 {
+		opts = opt[0]
+	}
+
+	if !opts.DontLock {
 		df.lock.RLock()
 		defer df.lock.RUnlock()
 	}
@@ -108,10 +115,10 @@ func (df *DataFrame) Row(row int, opt ...RowOptions) map[interface{}]interface{}
 	for idx, aSeries := range df.Series {
 		val := aSeries.Value(row)
 
-		if len(opt) == 0 || opt[0].has(SeriesIdx) {
+		if opts.Index {
 			out[idx] = val
 		}
-		if len(opt) == 0 || opt[0].has(SeriesName) {
+		if opts.Name {
 			out[aSeries.Name()] = val
 		}
 	}

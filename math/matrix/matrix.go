@@ -63,7 +63,7 @@ func (m MatrixWrap) T() Matrix {
 
 	// Copy values into df
 	for i := 0; i < mm; i++ {
-		vals := m.Row(i, true, dataframe.SeriesIdx)
+		vals := m.Row(i, dataframe.RowOpt{DontLock: true, Index: true})
 		for k, v := range vals {
 			df.Series[i].Update(k.(int), v, dataframe.DontLock)
 		}

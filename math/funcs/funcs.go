@@ -201,7 +201,7 @@ func Evaluate(ctx context.Context, df *dataframe.DataFrame, fn PiecewiseFuncDefn
 				variables = append(variables, formula.Var(k, v))
 			}
 		}
-		vals := df.Row(row, true, dataframe.SeriesName)
+		vals := df.Row(row, dataframe.RowOpt{DontLock: true, Name: true})
 		for k, v := range vals {
 			switch v.(type) {
 			case nil:

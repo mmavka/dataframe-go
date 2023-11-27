@@ -227,7 +227,7 @@ func filterDataFrame(ctx context.Context, df *DataFrame, fn FilterDataFrameFn, o
 		ndf := NewDataFrame(seriess...)
 
 		for _, rowToTransfer := range transfer {
-			vals := df.Row(rowToTransfer, true, SeriesName)
+			vals := df.Row(rowToTransfer, RowOpt{DontLock: true, Name: true})
 			ndf.Append(&dontLock, vals)
 		}
 		return ndf, nil
