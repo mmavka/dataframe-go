@@ -50,6 +50,17 @@ func NewDataFrame(se ...Series) *DataFrame {
 	return df
 }
 
+// NCols returns the number of columns of data.
+// Each series must contain the same number of rows.
+func (df *DataFrame) NCols(opts ...Options) int {
+	if len(opts) == 0 || !opts[0].DontLock {
+		df.lock.RLock()
+		defer df.lock.RUnlock()
+	}
+
+	return len(df.Series)
+}
+
 // NRows returns the number of rows of data.
 // Each series must contain the same number of rows.
 func (df *DataFrame) NRows(opts ...Options) int {
