@@ -87,13 +87,18 @@ const (
 	SeriesName
 )
 
+type RowOptions struct {
+	Options
+	SeriesReturnOpt
+}
+
 // Row returns the series' Values for a particular row.
 //
 // Example:
 //
 //	df.Row(5, false, dataframe.SeriesIdx|dataframe.SeriesName)
-func (df *DataFrame) Row(row int, dontReadLock bool, retOpt ...SeriesReturnOpt) map[interface{}]interface{} {
-	if !dontReadLock {
+func (df *DataFrame) Row(row int, opt ...RowOptions) map[interface{}]interface{} {
+	if len(opt) == 0 || !opt[0].DontLock {
 		df.lock.RLock()
 		defer df.lock.RUnlock()
 	}
@@ -103,10 +108,10 @@ func (df *DataFrame) Row(row int, dontReadLock bool, retOpt ...SeriesReturnOpt) 
 	for idx, aSeries := range df.Series {
 		val := aSeries.Value(row)
 
-		if len(retOpt) == 0 || retOpt[0].has(SeriesIdx) {
+		if len(opt) == 0 || opt[0].has(SeriesIdx) {
 			out[idx] = val
 		}
-		if len(retOpt) == 0 || retOpt[0].has(SeriesName) {
+		if len(opt) == 0 || opt[0].has(SeriesName) {
 			out[aSeries.Name()] = val
 		}
 	}
@@ -119,10 +124,10 @@ func (df *DataFrame) Row(row int, dontReadLock bool, retOpt ...SeriesReturnOpt) 
 // Example:
 //
 //	df.ColIdx(5, false)
-func (df *DataFrame) ColIdx(col int, dontReadLock bool) Series {
-	if !dontReadLock {
-		df.lock.RLock()
-		defer df.lock.RUnlock()
+func (df *DataFrame) ColIdx(col int, opts ...Options) Series {
+	if len(opts) == 0 || !opts[0].DontLock {
+		df.lock.Lock()
+		defer df.lock.Unlock()
 	}
 
 	return df.Series[col]
@@ -133,10 +138,10 @@ func (df *DataFrame) ColIdx(col int, dontReadLock bool) Series {
 // Example:
 //
 //	df.ColName("name", false)
-func (df *DataFrame) ColName(seriesName string, dontReadLock bool) Series {
-	if !dontReadLock {
-		df.lock.RLock()
-		defer df.lock.RUnlock()
+func (df *DataFrame) ColName(seriesName string, opts ...Options) Series {
+	if len(opts) == 0 || !opts[0].DontLock {
+		df.lock.Lock()
+		defer df.lock.Unlock()
 	}
 
 	return df.Series[df.MustNameToColumn(seriesName)]
