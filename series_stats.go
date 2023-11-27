@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// Mean returns the mean. All non-nil values are ignored.
+// Mean returns the mean. All non-nil Values are ignored.
 func (s *SeriesFloat64) Mean(ctx context.Context) (float64, error) {
 
 	sum, err := s.Sum(ctx)
@@ -22,7 +22,7 @@ func (s *SeriesFloat64) Mean(ctx context.Context) (float64, error) {
 	return sum / float64(count), nil
 }
 
-// Sum returns the sum of all non-nil values. If all values are nil, a NaN is returned.
+// Sum returns the sum of all non-nil Values. If all Values are nil, a NaN is returned.
 // If opposing infinites are found, a NaN is also returned
 func (s *SeriesFloat64) Sum(ctx context.Context) (float64, error) {
 
@@ -32,7 +32,7 @@ func (s *SeriesFloat64) Sum(ctx context.Context) (float64, error) {
 	var neginfs int
 
 	if count > 0 && count == s.nilCount {
-		// All values are nil
+		// All Values are nil
 		return nan(), nil
 	}
 
@@ -68,7 +68,7 @@ func (s *SeriesFloat64) Sum(ctx context.Context) (float64, error) {
 	return float64(sum), nil
 }
 
-// Mean returns the mean. All non-nil values are ignored.
+// Mean returns the mean. All non-nil Values are ignored.
 func (s *SeriesInt64) Mean(ctx context.Context) (float64, error) {
 
 	sum, err := s.Sum(ctx)
@@ -76,7 +76,7 @@ func (s *SeriesInt64) Mean(ctx context.Context) (float64, error) {
 		return 0, err
 	}
 
-	count := len(s.values) - s.nilCount
+	count := len(s.Values) - s.nilCount
 	if count == 0 {
 		return sum, nil
 	}
@@ -84,20 +84,20 @@ func (s *SeriesInt64) Mean(ctx context.Context) (float64, error) {
 	return sum / float64(count), nil
 }
 
-// Sum returns the sum of all non-nil values. If all values are nil, a
+// Sum returns the sum of all non-nil Values. If all Values are nil, a
 // NaN is returned.
 func (s *SeriesInt64) Sum(ctx context.Context) (float64, error) {
 
-	count := len(s.values)
+	count := len(s.Values)
 
 	if count > 0 && count == s.nilCount {
-		// All values are nil
+		// All Values are nil
 		return nan(), nil
 	}
 
 	var sum int64
 
-	for _, v := range s.values {
+	for _, v := range s.Values {
 
 		if err := ctx.Err(); err != nil {
 			return 0, err

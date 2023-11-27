@@ -71,7 +71,7 @@ func (o *OrderedMapIntFloat64) Delete(key int) {
 	}
 }
 
-// ValuesIterator is used to iterate through the values of OrderedMapIntFloat64.
+// ValuesIterator is used to iterate through the Values of OrderedMapIntFloat64.
 func (o *OrderedMapIntFloat64) ValuesIterator() func() (*int, float64) {
 	var keys []int
 
@@ -163,7 +163,7 @@ func (o *OrderedMapIntMixed) Delete(key int) {
 	}
 }
 
-// ValuesIterator is used to iterate through the values of OrderedMapIntMixed.
+// ValuesIterator is used to iterate through the Values of OrderedMapIntMixed.
 func (o *OrderedMapIntMixed) ValuesIterator() func() (*int, interface{}) {
 	var keys []int
 

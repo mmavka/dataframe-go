@@ -11,7 +11,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 
-	dataframe "github.com/rocketlaunchr/dataframe-go"
+	dataframe "github.com/mmavka/dataframe-go"
 )
 
 // SearchOptions modifies the behavior of Search.
@@ -40,11 +40,10 @@ type SearchOptions struct {
 //
 // Example:
 //
-//  s1 := dataframe.NewSeriesInt64("", nil, 11, 10, 9, 8, 7, 6, 5, 23, 25, 2, 1, 5, 4)
+//	s1 := dataframe.NewSeriesInt64("", nil, 11, 10, 9, 8, 7, 6, 5, 23, 25, 2, 1, 5, 4)
 //
-//  fmt.Println(utils.Search(ctx, s1, int64(4), int64(6)))
-//  // Output: [5 6 11 12]
-//
+//	fmt.Println(utils.Search(ctx, s1, int64(4), int64(6)))
+//	// Output: [5 6 11 12]
 func Search(ctx context.Context, s dataframe.Series, lower, upper interface{}, opts ...SearchOptions) ([]int, error) {
 
 	if len(opts) == 0 {

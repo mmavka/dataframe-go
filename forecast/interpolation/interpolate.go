@@ -6,7 +6,7 @@ package interpolation
 import (
 	"context"
 
-	dataframe "github.com/rocketlaunchr/dataframe-go"
+	dataframe "github.com/mmavka/dataframe-go"
 )
 
 // FillDirection is used to set the direction that nil values are filled.

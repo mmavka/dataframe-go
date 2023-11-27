@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"time"
 
-	dataframe "github.com/rocketlaunchr/dataframe-go"
+	dataframe "github.com/mmavka/dataframe-go"
 	rlSql "github.com/rocketlaunchr/mysql-go"
 )
 

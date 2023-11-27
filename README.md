@@ -44,7 +44,7 @@ go get -u github.com/rocketlaunchr/dataframe-go
 ```
 
 ```go
-import dataframe "github.com/rocketlaunchr/dataframe-go"
+import dataframe "github.com/mmavka/dataframe-go"
 ```
 
 # DataFrames
@@ -224,8 +224,8 @@ std := stat.StdDev(sf.Values, nil)
 ```go
 import (
 	chart "github.com/wcharczuk/go-chart"
-	"github.com/rocketlaunchr/dataframe-go/plot"
-	wc "github.com/rocketlaunchr/dataframe-go/plot/wcharczuk/go-chart"
+	"github.com/mmavka/dataframe-go/plot"
+	wc "github.com/mmavka/dataframe-go/plot/wcharczuk/go-chart"
 )
 
 sales := dataframe.NewSeriesFloat64("sales", nil, 50.3, nil, 23.4, 56.2, 89, 32, 84.2, 72, 89)
@@ -249,7 +249,7 @@ Output:
 ## Math Functions
 
 ```go
-import "github.com/rocketlaunchr/dataframe-go/math/funcs"
+import "github.com/mmavka/dataframe-go/math/funcs"
 
 res := 24
 sx := dataframe.NewSeriesFloat64("x", nil, utils.Float64Seq(1, float64(res), 1))

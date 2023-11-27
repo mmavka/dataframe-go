@@ -86,7 +86,7 @@ type Series interface {
 	Append(val interface{}, opts ...Options) int
 
 	// Insert is used to set a value at an arbitrary row in
-	// the series. All existing values from that row onwards
+	// the series. All existing Values from that row onwards
 	// are shifted by 1. val can be a concrete data type or nil.
 	// Nil represents the absence of a value.
 	Insert(row int, val interface{}, opts ...Options)
@@ -97,7 +97,7 @@ type Series interface {
 	// Reset is used clear all data contained in the Series.
 	Reset(opts ...Options)
 
-	// ValuesIterator will return a function that can be used to iterate through all the values.
+	// ValuesIterator will return a function that can be used to iterate through all the Values.
 	ValuesIterator(opts ...ValuesOptions) func() (*int, interface{}, int)
 
 	// Update is used to update the value of a particular row.
@@ -120,7 +120,7 @@ type Series interface {
 	// IsLessThanFunc returns true if a is less than b.
 	IsLessThanFunc(a, b interface{}) bool
 
-	// Swap is used to swap 2 values based on their row position.
+	// Swap is used to swap 2 Values based on their row position.
 	Swap(row1, row2 int, opts ...Options)
 
 	// Lock will lock the Series allowing you to directly manipulate
@@ -135,13 +135,13 @@ type Series interface {
 	// to Copy.
 	Copy(r ...Range) Series
 
-	// ContainsNil will return whether or not the series contains any nil values.
+	// ContainsNil will return whether or not the series contains any nil Values.
 	ContainsNil(opts ...Options) bool
 
-	// NilCount will return how many nil values are in the series.
+	// NilCount will return how many nil Values are in the series.
 	NilCount(opts ...NilCountOptions) (int, error)
 
-	// IsEqual returns true if s2's values are equal to s.
+	// IsEqual returns true if s2's Values are equal to s.
 	IsEqual(ctx context.Context, s2 Series, opts ...IsEqualOptions) (bool, error)
 }
 
@@ -172,7 +172,7 @@ type FillRandOptions struct {
 	Extra interface{}
 }
 
-// FillRander is an interface for generating a Series with random values.
+// FillRander is an interface for generating a Series with random Values.
 type FillRander interface {
 
 	// FillRand will fill a Series with random data. probNil is a value between between 0 and 1 which

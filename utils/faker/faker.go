@@ -13,7 +13,7 @@ import (
 
 	"github.com/brianvoe/gofakeit/v4"
 
-	dataframe "github.com/rocketlaunchr/dataframe-go"
+	dataframe "github.com/mmavka/dataframe-go"
 )
 
 type s struct {
@@ -40,12 +40,11 @@ func S(name string, probNil float64, fn string, args ...interface{}) s {
 //
 // Example:
 //
-//  import "golang.org/x/exp/rand"
-//  import "time"
+//	import "golang.org/x/exp/rand"
+//	import "time"
 //
-//  src := rand.NewSource(uint64(time.Now().UTC().UnixNano()))
-//  df := faker.NewDataFrame(5, src, faker.S("name", 0, "FirstName"), faker.S("email", 0, "Email"))
-//
+//	src := rand.NewSource(uint64(time.Now().UTC().UnixNano()))
+//	df := faker.NewDataFrame(5, src, faker.S("name", 0, "FirstName"), faker.S("email", 0, "Email"))
 func NewDataFrame(rows int, src rand.Source, s ...s) *dataframe.DataFrame {
 
 	if rows <= 0 {

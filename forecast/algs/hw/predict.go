@@ -5,8 +5,8 @@ package hw
 import (
 	"context"
 
-	dataframe "github.com/rocketlaunchr/dataframe-go"
-	"github.com/rocketlaunchr/dataframe-go/forecast"
+	dataframe "github.com/mmavka/dataframe-go"
+	"github.com/mmavka/dataframe-go/forecast"
 )
 
 // Predict forecasts the next n values for the loaded data.

@@ -9,7 +9,7 @@ import (
 )
 
 // DefaultIsEqualFunc is the default comparitor to determine if
-// two values in the series are the same.
+// two Values in the series are the same.
 func DefaultIsEqualFunc(a, b interface{}) bool {
 	return cmp.Equal(a, b)
 }

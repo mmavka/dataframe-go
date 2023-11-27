@@ -13,7 +13,7 @@ import (
 	"github.com/xitongsys/parquet-go/reader"
 	"github.com/xitongsys/parquet-go/source"
 
-	dataframe "github.com/rocketlaunchr/dataframe-go"
+	dataframe "github.com/mmavka/dataframe-go"
 )
 
 // ParquetLoadOptions is likely to change.
@@ -26,16 +26,15 @@ type ParquetLoadOptions struct {
 //
 // Example (gist):
 //
-//  import	"github.com/xitongsys/parquet-go-source/local"
-//  import	"github.com/rocketlaunchr/dataframe-go/imports"
+//	import	"github.com/xitongsys/parquet-go-source/local"
+//	import	"github.com/mmavka/dataframe-go/imports"
 //
-//  func main() {
-//  	fr, _ := local.NewLocalFileReader("file.parquet")
-//  	defer fr.Close()
+//	func main() {
+//		fr, _ := local.NewLocalFileReader("file.parquet")
+//		defer fr.Close()
 //
-//  	df, _ := imports.LoadFromParquet(ctx, fr)
-//  }
-//
+//		df, _ := imports.LoadFromParquet(ctx, fr)
+//	}
 func LoadFromParquet(ctx context.Context, src source.ParquetFile, opts ...ParquetLoadOptions) (*dataframe.DataFrame, error) {
 	pr, err := reader.NewParquetReader(src, nil, int64(runtime.NumCPU()))
 	if err != nil {

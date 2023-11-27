@@ -7,9 +7,9 @@ import (
 )
 
 // ApplyDataFrameFn is used by the Apply function when used with DataFrames.
-// vals contains the values for the current row. The keys contain ints (index of Series) and strings (name of Series).
-// The returned map must only contain what values you intend to update. The key can be a string (name of Series) or int (index of Series).
-// If nil is returned, the existing values for the row are unchanged.
+// vals contains the Values for the current row. The keys contain ints (index of Series) and strings (name of Series).
+// The returned map must only contain what Values you intend to update. The key can be a string (name of Series) or int (index of Series).
+// If nil is returned, the existing Values for the row are unchanged.
 type ApplyDataFrameFn func(vals map[interface{}]interface{}, row, nRows int) map[interface{}]interface{}
 
 // ApplySeriesFn is used by the Apply function when used with Series.

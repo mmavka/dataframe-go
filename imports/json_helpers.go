@@ -11,7 +11,7 @@ import (
 
 	"github.com/goccy/go-json"
 
-	dataframe "github.com/rocketlaunchr/dataframe-go"
+	dataframe "github.com/mmavka/dataframe-go"
 )
 
 type jsonRow func() (*int, interface{}, error) // row, data

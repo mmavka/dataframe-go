@@ -138,7 +138,7 @@ func TestSeriesOperations(t *testing.T) {
 		s.Remove(1)
 	}
 
-	// Test values
+	// Test Values
 	expectedValues := [][]interface{}{
 		{3.0, 2.0, 4.0},
 		{3, 2, 4},
@@ -177,7 +177,7 @@ func TestSeriesUpdate(t *testing.T) {
 		NewSeriesGeneric("test", civil.Date{}, &SeriesInit{0, 1}, civil.Date{2018, time.May, 1}, civil.Date{2018, time.May, 2}, civil.Date{2018, time.May, 3}),
 	}
 
-	// Update values
+	// Update Values
 	for i := range init {
 		s := init[i]
 
@@ -293,7 +293,7 @@ func TestSeriesSort(t *testing.T) {
 	// 	return b.(int) > a.(int)
 	// })
 
-	// Sort values
+	// Sort Values
 	for i := range init {
 		s := init[i]
 		s.Sort(context.Background(), SortOptions{Desc: true})

@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
+	dataframe "github.com/mmavka/dataframe-go"
 	dynamicstruct "github.com/ompluscator/dynamic-struct"
-	dataframe "github.com/rocketlaunchr/dataframe-go"
 	"github.com/xitongsys/parquet-go-source/writerfile"
 	"github.com/xitongsys/parquet-go/parquet"
 	"github.com/xitongsys/parquet-go/writer"

@@ -9,7 +9,7 @@ import (
 	"golang.org/x/xerrors"
 	"math"
 
-	dataframe "github.com/rocketlaunchr/dataframe-go"
+	dataframe "github.com/mmavka/dataframe-go"
 	"github.com/sandertv/go-formula/v2"
 )
 
@@ -60,17 +60,16 @@ var ErrUndefined = errors.New("undefined")
 //
 // Example:
 //
-//  fn := []funcs.SubFunc{
-//     {
-//        Fn:     "sin(x)+2*y",
-//        Domain: &[]dataframe.Range{dataframe.RangeFinite(0, 2)}[0],
-//     },
-//     {
-//        Fn:     "0",
-//        Domain: nil,
-//     },
-//  }
-//
+//	fn := []funcs.SubFunc{
+//	   {
+//	      Fn:     "sin(x)+2*y",
+//	      Domain: &[]dataframe.Range{dataframe.RangeFinite(0, 2)}[0],
+//	   },
+//	   {
+//	      Fn:     "0",
+//	      Domain: nil,
+//	   },
+//	}
 type PiecewiseFuncDefn []SubFuncDefn
 
 // SubFuncDefn represents a subset of the piecewise function. PiecewiseFuncDefn consists of potentially numerous
@@ -116,9 +115,8 @@ func (p pfs) pf(row int) (*formula.Formula, error) {
 //
 // Example:
 //
-//  fn := funcs.RegFunc("sin((2*𝜋*x)/24)")
-//  funcs.Evaluate(ctx, df, fn, 1)
-//
+//	fn := funcs.RegFunc("sin((2*𝜋*x)/24)")
+//	funcs.Evaluate(ctx, df, fn, 1)
 func Evaluate(ctx context.Context, df *dataframe.DataFrame, fn PiecewiseFuncDefn, col interface{}, opts ...EvaluateOptions) error {
 
 	var r dataframe.Range

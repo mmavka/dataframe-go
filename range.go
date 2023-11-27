@@ -11,7 +11,7 @@ import (
 // A nil value means no limit, so a Start of nil means 0
 // and an End of nil means no limit.
 // The End value must always be equal to or larger than Start.
-// Negative values are acceptable. A value of -2 means the second last row.
+// Negative Values are acceptable. A value of -2 means the second last row.
 type Range struct {
 	Start *int
 	End   *int
@@ -125,13 +125,12 @@ func RangeFinite(start int, end ...int) Range {
 //
 // Example:
 //
-//  import "sort"
-//  ints := []int{2,4,5,6,8,10,11,45,46}
-//  sort.Ints(ints)
+//	import "sort"
+//	ints := []int{2,4,5,6,8,10,11,45,46}
+//	sort.Ints(ints)
 //
-//  fmt.Println(IntsToRanges(ints))
-//  // Output: R{2,2}, R{4,6}, R{8,8}, R{10,11}, R{45,46}
-//
+//	fmt.Println(IntsToRanges(ints))
+//	// Output: R{2,2}, R{4,6}, R{8,8}, R{10,11}, R{45,46}
 func IntsToRanges(ints []int) []Range {
 
 	out := []Range{}

@@ -180,7 +180,7 @@ func (s *SeriesTime) Prepend(val interface{}, opts ...Options) {
 	// See: https://stackoverflow.com/questions/41914386/what-is-the-mechanism-of-using-append-to-prepend-in-go
 
 	if cap(s.Values) > len(s.Values) {
-		// There is already extra capacity so copy current values by 1 spot
+		// There is already extra capacity so copy current Values by 1 spot
 		s.Values = s.Values[:len(s.Values)+1]
 		copy(s.Values[1:], s.Values)
 		s.Values[0] = s.valToPointer(val)
@@ -208,7 +208,7 @@ func (s *SeriesTime) Append(val interface{}, opts ...Options) int {
 }
 
 // Insert is used to set a value at an arbitrary row in
-// the series. All existing values from that row onwards
+// the series. All existing Values from that row onwards
 // are shifted by 1. val can be a concrete data type or nil.
 // Nil represents the absence of a value.
 func (s *SeriesTime) Insert(row int, val interface{}, opts ...Options) {
@@ -297,7 +297,7 @@ func (s *SeriesTime) Update(row int, val interface{}, opts ...Options) {
 	s.Values[row] = newVal
 }
 
-// ValuesIterator will return a function that can be used to iterate through all the values.
+// ValuesIterator will return a function that can be used to iterate through all the Values.
 func (s *SeriesTime) ValuesIterator(opts ...ValuesOptions) func() (*int, interface{}, int) {
 
 	var (
@@ -416,7 +416,7 @@ func (s *SeriesTime) SetValueToStringFormatter(f ValueToStringFormatter) {
 	s.valFormatter = f
 }
 
-// Swap is used to swap 2 values based on their row position.
+// Swap is used to swap 2 Values based on their row position.
 func (s *SeriesTime) Swap(row1, row2 int, opts ...Options) {
 	if row1 == row2 {
 		return
@@ -642,7 +642,7 @@ func (s *SeriesTime) String() string {
 	return out + "]"
 }
 
-// ContainsNil will return whether or not the series contains any nil values.
+// ContainsNil will return whether or not the series contains any nil Values.
 func (s *SeriesTime) ContainsNil(opts ...Options) bool {
 	if len(opts) == 0 || !opts[0].DontLock {
 		s.lock.RLock()
@@ -652,7 +652,7 @@ func (s *SeriesTime) ContainsNil(opts ...Options) bool {
 	return s.nilCount > 0
 }
 
-// NilCount will return how many nil values are in the series.
+// NilCount will return how many nil Values are in the series.
 func (s *SeriesTime) NilCount(opts ...NilCountOptions) (int, error) {
 	if len(opts) == 0 {
 		s.lock.RLock()
@@ -730,25 +730,25 @@ func (s *SeriesTime) ToSeriesInt64(ctx context.Context, removeNil bool, conv ...
 			if removeNil {
 				continue
 			}
-			ss.values = append(ss.values, nil)
+			ss.Values = append(ss.Values, nil)
 			ss.nilCount++
 		} else {
 			if len(conv) == 0 {
 				cv := (*rowVal).Unix()
-				ss.values = append(ss.values, &cv)
+				ss.Values = append(ss.Values, &cv)
 			} else {
 				cv, err := conv[0](rowVal)
 				if err != nil {
 					// interpret as nil
-					ss.values = append(ss.values, nil)
+					ss.Values = append(ss.Values, nil)
 					ss.nilCount++
 					ec.AddError(&RowError{Row: row, Err: err}, false)
 				} else {
 					if cv == nil {
-						ss.values = append(ss.values, nil)
+						ss.Values = append(ss.Values, nil)
 						ss.nilCount++
 					} else {
-						ss.values = append(ss.values, cv)
+						ss.Values = append(ss.Values, cv)
 					}
 				}
 			}
@@ -829,24 +829,24 @@ func (s *SeriesTime) ToSeriesMixed(ctx context.Context, removeNil bool, conv ...
 			if removeNil {
 				continue
 			}
-			ss.values = append(ss.values, nil)
+			ss.Values = append(ss.Values, nil)
 			ss.nilCount++
 		} else {
 			if len(conv) == 0 {
 				cv := (*rowVal).Unix()
-				ss.values = append(ss.values, cv)
+				ss.Values = append(ss.Values, cv)
 			} else {
 				cv, err := conv[0](rowVal)
 				if err != nil {
 					// interpret as nil
-					ss.values = append(ss.values, nil)
+					ss.Values = append(ss.Values, nil)
 					ss.nilCount++
 					ec.AddError(&RowError{Row: row, Err: err}, false)
 				} else {
 					if cv == nil {
 						ss.nilCount++
 					}
-					ss.values = append(ss.values, cv)
+					ss.Values = append(ss.Values, cv)
 				}
 			}
 		}
@@ -893,7 +893,7 @@ func (s *SeriesTime) FillRand(src rand.Source, probNil float64, rander Rander, o
 	}
 }
 
-// IsEqual returns true if s2's values are equal to s.
+// IsEqual returns true if s2's Values are equal to s.
 func (s *SeriesTime) IsEqual(ctx context.Context, s2 Series, opts ...IsEqualOptions) (bool, error) {
 	if len(opts) == 0 || !opts[0].DontLock {
 		s.lock.RLock()
@@ -906,7 +906,7 @@ func (s *SeriesTime) IsEqual(ctx context.Context, s2 Series, opts ...IsEqualOpti
 		return false, nil
 	}
 
-	// Check number of values
+	// Check number of Values
 	if len(s.Values) != len(ts.Values) {
 		return false, nil
 	}
@@ -918,7 +918,7 @@ func (s *SeriesTime) IsEqual(ctx context.Context, s2 Series, opts ...IsEqualOpti
 		}
 	}
 
-	// Check values
+	// Check Values
 	for i, v := range s.Values {
 		if err := ctx.Err(); err != nil {
 			return false, err

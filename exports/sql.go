@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	dataframe "github.com/rocketlaunchr/dataframe-go"
+	dataframe "github.com/mmavka/dataframe-go"
 	"github.com/rocketlaunchr/dbq/v2"
 )
 
@@ -78,52 +78,51 @@ type PrimaryKey struct {
 //
 // Example (gist):
 //
-//  import (
-//  	stdSql "database/sql"
+//	import (
+//		stdSql "database/sql"
 //
-//  	"github.com/rocketlaunchr/dataframe-go/exports"
-//  	sql "github.com/rocketlaunchr/mysql-go"
-//  	"github.com/myesui/uuid"
-//  )
+//		"github.com/mmavka/dataframe-go/exports"
+//		sql "github.com/rocketlaunchr/mysql-go"
+//		"github.com/myesui/uuid"
+//	)
 //
-//  func main() {
+//	func main() {
 //
-//  	p, _ := stdSql.Open("mysql", "user:password@/dbname")
-//  	pool := &sql.DB{DB:p}
+//		p, _ := stdSql.Open("mysql", "user:password@/dbname")
+//		pool := &sql.DB{DB:p}
 //
-//  	conn, err := pool.Conn(ctx)
-//  	defer conn.Close()
+//		conn, err := pool.Conn(ctx)
+//		defer conn.Close()
 //
-//  	tx, _ := conn.BeginTx(ctx, nil)
+//		tx, _ := conn.BeginTx(ctx, nil)
 //
-//  	opts := exports.SQLExportOptions{
-//  		SeriesToColumn: map[string]*string{
-//  			"Country": &[]string{"country"}[0],
-//  			"Age":     &[]string{"age"}[0],
-//  			"Id":      nil,
-//  			"Date":    nil,
-//  			"Amount":  nil,
-//  		},
-//  		PrimaryKey: &exports.PrimaryKey{
-//  			PrimaryKey: "uuid",
-//  			Value: func(row int, n int) *string {
-//  				str := uuid.NewV4().String()
-//  				return &str
-//  			},
-//  		},
-//  		BatchSize: &[]uint{50}[0],
-//  		Database:  exports.MySQL,
-//  	}
+//		opts := exports.SQLExportOptions{
+//			SeriesToColumn: map[string]*string{
+//				"Country": &[]string{"country"}[0],
+//				"Age":     &[]string{"age"}[0],
+//				"Id":      nil,
+//				"Date":    nil,
+//				"Amount":  nil,
+//			},
+//			PrimaryKey: &exports.PrimaryKey{
+//				PrimaryKey: "uuid",
+//				Value: func(row int, n int) *string {
+//					str := uuid.NewV4().String()
+//					return &str
+//				},
+//			},
+//			BatchSize: &[]uint{50}[0],
+//			Database:  exports.MySQL,
+//		}
 //
-//  	err = exports.ExportToSQL(ctx, tx, df, "test", opts)
-//  	if err != nil {
-//  		tx.Rollback()
-//  		return
-//  	}
+//		err = exports.ExportToSQL(ctx, tx, df, "test", opts)
+//		if err != nil {
+//			tx.Rollback()
+//			return
+//		}
 //
-//  	tx.Commit()
-//  }
-//
+//		tx.Commit()
+//	}
 func ExportToSQL(ctx context.Context, db execContexter, df *dataframe.DataFrame, tableName string, options ...SQLExportOptions) error {
 
 	df.Lock()

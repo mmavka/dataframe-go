@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"time"
 
-	dataframe "github.com/rocketlaunchr/dataframe-go"
+	dataframe "github.com/mmavka/dataframe-go"
 )
 
 var timelayouts = []string{
@@ -65,7 +65,7 @@ func newInferSeries(name string, knownSize *int) *inferSeries {
 	return is
 }
 
-// 	We are only appending in here
+// We are only appending in here
 func (is *inferSeries) Insert(row int, val interface{}, opts ...dataframe.Options) {
 
 	// val can be nil or string

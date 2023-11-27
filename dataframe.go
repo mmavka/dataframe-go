@@ -11,7 +11,7 @@ import (
 )
 
 // DataFrame allows you to handle numerous
-//series of data conveniently.
+// series of data conveniently.
 type DataFrame struct {
 	lock   sync.RWMutex
 	Series []Series
@@ -76,12 +76,11 @@ const (
 	SeriesName
 )
 
-// Row returns the series' values for a particular row.
+// Row returns the series' Values for a particular row.
 //
 // Example:
 //
-//  df.Row(5, false, dataframe.SeriesIdx|dataframe.SeriesName)
-//
+//	df.Row(5, false, dataframe.SeriesIdx|dataframe.SeriesName)
 func (df *DataFrame) Row(row int, dontReadLock bool, retOpt ...SeriesReturnOpt) map[interface{}]interface{} {
 	if !dontReadLock {
 		df.lock.RLock()
@@ -108,7 +107,7 @@ func (df *DataFrame) Row(row int, dontReadLock bool, retOpt ...SeriesReturnOpt) 
 type ValuesOptions struct {
 
 	// InitialRow represents the starting value for iterating.
-	// Negative values are acceptable. A value of -2 means the second last row.
+	// Negative Values are acceptable. A value of -2 means the second last row.
 	InitialRow int
 
 	// Step represents by how much each iteration should step by.
@@ -122,34 +121,33 @@ type ValuesOptions struct {
 	DontReadLock bool
 }
 
-// ValuesIterator will return a function that can be used to iterate through all the values.
+// ValuesIterator will return a function that can be used to iterate through all the Values.
 //
 // The returned value is a map containing the name of the series (string) and the index of the series (int) as keys.
 // You can reduce the keys in the map to only contain the series name (SeriesName) or series index (SeriesIdx).
 //
 // Example:
 //
-//  iterator := df.ValuesIterator(dataframe.ValuesOptions{0, 1, true})
+//	iterator := df.ValuesIterator(dataframe.ValuesOptions{0, 1, true})
 //
-//  df.Lock()
-//  for {
-//     row, vals, _ := iterator(dataframe.SeriesName)
-//     if row == nil {
-//        break
-//     }
-//     fmt.Println(*row, vals)
-//  }
-//  df.Unlock()
+//	df.Lock()
+//	for {
+//	   row, vals, _ := iterator(dataframe.SeriesName)
+//	   if row == nil {
+//	      break
+//	   }
+//	   fmt.Println(*row, vals)
+//	}
+//	df.Unlock()
 //
-//  // OR
+//	// OR
 //
-//  df.Lock()
-//  row, vals, _ := iterator()
-//  for ; row != nil; row, vals, _ = iterator() {
-//     fmt.Println(*row, vals)
-//  }
-//  df.Unlock()
-//
+//	df.Lock()
+//	row, vals, _ := iterator()
+//	for ; row != nil; row, vals, _ = iterator() {
+//	   fmt.Println(*row, vals)
+//	}
+//	df.Unlock()
 func (df *DataFrame) ValuesIterator(opts ...ValuesOptions) func(opts ...SeriesReturnOpt) (*int, map[interface{}]interface{}, int) {
 
 	var (
@@ -452,7 +450,7 @@ func (df *DataFrame) ReorderColumns(newOrder []string, opts ...Options) error {
 	}
 
 	if len(fields) != len(df.Series) {
-		return errors.New("newOrder must not contain duplicate values")
+		return errors.New("newOrder must not contain duplicate Values")
 	}
 
 	series := []Series{}
@@ -509,7 +507,7 @@ func (df *DataFrame) AddSeries(s Series, colN *int, opts ...Options) error {
 	return nil
 }
 
-// Swap is used to swap 2 values based on their row position.
+// Swap is used to swap 2 Values based on their row position.
 func (df *DataFrame) Swap(row1, row2 int, opts ...Options) {
 	if len(opts) == 0 || !opts[0].DontLock {
 		df.lock.Lock()
@@ -580,7 +578,7 @@ func (df *DataFrame) FillRand(src rand.Source, probNil float64, rander Rander, o
 
 var errNotEqual = errors.New("not equal")
 
-// IsEqual returns true if df2's values are equal to df.
+// IsEqual returns true if df2's Values are equal to df.
 func (df *DataFrame) IsEqual(ctx context.Context, df2 *DataFrame, opts ...IsEqualOptions) (bool, error) {
 	if len(opts) == 0 || !opts[0].DontLock {
 		df.lock.RLock()
@@ -592,7 +590,7 @@ func (df *DataFrame) IsEqual(ctx context.Context, df2 *DataFrame, opts ...IsEqua
 		return false, nil
 	}
 
-	// Check values
+	// Check Values
 	g, newCtx := errgroup.WithContext(ctx)
 
 	for i := range df.Series {

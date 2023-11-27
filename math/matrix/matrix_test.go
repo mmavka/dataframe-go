@@ -6,7 +6,7 @@ import (
 	"context"
 	"testing"
 
-	dataframe "github.com/rocketlaunchr/dataframe-go"
+	dataframe "github.com/mmavka/dataframe-go"
 )
 
 func TestTranspose(t *testing.T) {

@@ -7,7 +7,7 @@ import (
 	"math"
 	"testing"
 
-	dataframe "github.com/rocketlaunchr/dataframe-go"
+	dataframe "github.com/mmavka/dataframe-go"
 )
 
 var ctx = context.Background()
