@@ -28,6 +28,20 @@ type SeriesMixed struct {
 	nilCount int
 }
 
+func (s *SeriesMixed) ValueList(opts ...Options) []interface{} {
+	if len(opts) == 0 || !opts[0].DontLock {
+		s.lock.RLock()
+		defer s.lock.RUnlock()
+	}
+
+	out := make([]interface{}, len(s.Values))
+	for i, v := range s.Values {
+		out[i] = v
+	}
+
+	return out
+}
+
 // NewSeriesMixed creates a new series with the underlying type as interface{}.
 func NewSeriesMixed(name string, init *SeriesInit, vals ...interface{}) *SeriesMixed {
 	s := &SeriesMixed{

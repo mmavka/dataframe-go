@@ -69,6 +69,9 @@ type Series interface {
 	// Pointers are never returned.
 	Value(row int, opts ...Options) interface{}
 
+	// ValueList returns all the values of the series.
+	ValueList(opts ...Options) []interface{}
+
 	// ValueString returns a string representation of a
 	// particular row. The string representation is defined
 	// by the function set in SetValueToStringFormatter.

@@ -114,7 +114,35 @@ func (df *DataFrame) Row(row int, dontReadLock bool, retOpt ...SeriesReturnOpt) 
 	return out
 }
 
-// ValuesOptions is used to modify the behavior of Values().
+// ColIdx returns the series' values for a particular column.
+//
+// Example:
+//
+//	df.ColIdx(5, false)
+func (df *DataFrame) ColIdx(col int, dontReadLock bool) Series {
+	if !dontReadLock {
+		df.lock.RLock()
+		defer df.lock.RUnlock()
+	}
+
+	return df.Series[col]
+}
+
+// ColName returns the series' values for a particular column.
+//
+// Example:
+//
+//	df.ColName("name", false)
+func (df *DataFrame) ColName(seriesName string, dontReadLock bool) Series {
+	if !dontReadLock {
+		df.lock.RLock()
+		defer df.lock.RUnlock()
+	}
+
+	return df.Series[df.MustNameToColumn(seriesName)]
+}
+
+// ValuesOptions is used to modify the behavior of values().
 type ValuesOptions struct {
 
 	// InitialRow represents the starting value for iterating.

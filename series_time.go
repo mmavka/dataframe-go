@@ -34,6 +34,20 @@ type SeriesTime struct {
 	nilCount int
 }
 
+func (s *SeriesTime) ValueList(opts ...Options) []interface{} {
+	if len(opts) == 0 || !opts[0].DontLock {
+		s.lock.RLock()
+		defer s.lock.RUnlock()
+	}
+
+	out := make([]interface{}, len(s.Values))
+	for i, v := range s.Values {
+		out[i] = v
+	}
+
+	return out
+}
+
 // NewSeriesTime creates a new series with the underlying type as time.Time.
 func NewSeriesTime(name string, init *SeriesInit, vals ...interface{}) *SeriesTime {
 	s := &SeriesTime{
